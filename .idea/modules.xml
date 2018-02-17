@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CandyStoreV5.iml" filepath="$PROJECT_DIR$/CandyStoreV5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CandyStore.iml" filepath="$PROJECT_DIR$/.idea/CandyStore.iml" />
+      <module fileurl="file://C:\Android\CandyStore\CandyStoreV5.iml" filepath="C:\Android\CandyStore\CandyStoreV5.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

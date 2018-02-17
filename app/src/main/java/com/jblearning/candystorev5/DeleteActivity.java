@@ -23,11 +23,11 @@ public class DeleteActivity extends AppCompatActivity {
 
   // Build a View dynamically with all the candies
   public void updateView( ) {
-    ArrayList<Candy> candies = dbManager.selectAll( );
+    ArrayList<Task> candies = dbManager.selectAll( );
     RelativeLayout layout = new RelativeLayout( this );
     ScrollView scrollView = new ScrollView( this );
     RadioGroup group = new RadioGroup( this );
-    for ( Candy candy : candies ) {
+    for ( Task candy : candies ) {
       RadioButton rb = new RadioButton( this );
       rb.setId( candy.getId( ) );
       rb.setText( candy.toString( ) );
@@ -68,7 +68,7 @@ public class DeleteActivity extends AppCompatActivity {
     public void onCheckedChanged( RadioGroup group, int checkedId ) {
       // delete candy from database
       dbManager.deleteById( checkedId );
-      Toast.makeText( DeleteActivity.this, "Candy deleted",
+      Toast.makeText( DeleteActivity.this, "Task deleted",
         Toast.LENGTH_SHORT ).show( );
 
       // update screen

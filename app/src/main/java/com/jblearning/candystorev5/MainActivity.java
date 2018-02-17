@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void updateView( ) {
-    ArrayList<Candy> candies = dbManager.selectAll( );
+    ArrayList<Task> candies = dbManager.selectAll( );
     if( candies.size( ) > 0 ) {
       // remove subviews inside scrollView if necessary
       scrollView.removeAllViewsInLayout( );
@@ -58,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
       // fill the grid
       int i = 0;
-      for ( Candy candy : candies ) {
+      for ( Task candy : candies ) {
         // create the button
         buttons[i] = new CandyButton( this, candy );
         buttons[i].setText( candy.getName( )
-            + "\n" + candy.getPrice( ) );
+            + "\n" + candy.getDeadline( ) );
 
         // set up event handling
         buttons[i].setOnClickListener( bh );

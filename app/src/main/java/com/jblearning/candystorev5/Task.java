@@ -1,11 +1,11 @@
 package com.jblearning.candystorev5;
 
-public class Candy {
+public class Task {
   private int id;
   private String name;
   private double price;
 
-  public Candy( int newId, String newName, double newPrice ) {
+  public Task(int newId, String newName, Double newPrice ) {
     setId( newId );
     setName( newName );
     setPrice( newPrice );
@@ -32,7 +32,7 @@ public class Candy {
     return name;
   }
 
-  public double getPrice( ) {
+  public double getDeadline( ) {
     return price;
   }
 

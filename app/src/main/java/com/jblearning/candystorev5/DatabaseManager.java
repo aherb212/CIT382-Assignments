@@ -5,15 +5,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class DatabaseManager extends SQLiteOpenHelper {
-  private static final String DATABASE_NAME = "candyDB";
+  private static final String DATABASE_NAME = "ToDoDB";
   private static final int DATABASE_VERSION = 1;
-  private static final String TABLE_CANDY = "candy";
-  private static final String ID = "id";
-  private static final String NAME = "name";
-  private static final String PRICE = "price";
+  private static final String TABLE_TASKS = "Tasks";
+  private static final String ID = "Task_ID";
+  private static final String NAME = "Task_Name";
+  private static final String DEADLINE = "Deadline";
 	
   public DatabaseManager( Context context ) {
     super( context, DATABASE_NAME, null, DATABASE_VERSION );
@@ -21,9 +22,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
  
   public void onCreate( SQLiteDatabase db ) {
     // build sql create statement
-    String sqlCreate = "create table " + TABLE_CANDY + "( " + ID;
+    String sqlCreate = "create table " + TABLE_TASKS + "( " + ID;
     sqlCreate += " integer primary key autoincrement, " + NAME;
-    sqlCreate += " text, " + PRICE + " real )" ;
+    sqlCreate += " text, " + DEADLINE + " real )" ;
     
     db.execSQL( sqlCreate );
   }
@@ -31,52 +32,52 @@ public class DatabaseManager extends SQLiteOpenHelper {
   public void onUpgrade( SQLiteDatabase db,
                          int oldVersion, int newVersion ) {
     // Drop old table if it exists
-    db.execSQL( "drop table if exists " + TABLE_CANDY );
+    db.execSQL( "drop table if exists " + TABLE_TASKS );
     // Re-create tables
     onCreate( db );
   }
-    
-  public void insert( Candy candy ) {
+  //Insert method
+  public void insert( Task task ) {                  //Task task will need changed
     SQLiteDatabase db = this.getWritableDatabase( );
-    String sqlInsert = "insert into " + TABLE_CANDY;
-    sqlInsert += " values( null, '" + candy.getName( );
-    sqlInsert += "', '" + candy.getPrice( ) + "' )";
+    String sqlInsert = "insert into " + TABLE_TASKS;
+    sqlInsert += " values( null, '" + task.getName( );
+    sqlInsert += "', '" + task.getDeadline( ) + "' )";   //getDeadline() will need to be changed
  
     db.execSQL( sqlInsert );
     db.close( );
   }
-   
+  //Delete method
   public void deleteById( int id ) {
     SQLiteDatabase db = this.getWritableDatabase( );
-    String sqlDelete = "delete from " + TABLE_CANDY;
+    String sqlDelete = "delete from " + TABLE_TASKS;
     sqlDelete += " where " + ID + " = " + id;
     
     db.execSQL( sqlDelete );
     db.close( );
   }
-
-  public void updateById( int id, String name, double price ) {
+  //Update method
+  public void updateById( int id, String name, Date Deadline ) {
     SQLiteDatabase db = this.getWritableDatabase();
  
-    String sqlUpdate = "update " + TABLE_CANDY;
+    String sqlUpdate = "update " + TABLE_TASKS;
     sqlUpdate += " set " + NAME + " = '" + name + "', ";
-    sqlUpdate += PRICE + " = '" + price + "'";
+    sqlUpdate += DEADLINE + " = '" + Deadline + "'";
     sqlUpdate += " where " + ID + " = " + id;
 
     db.execSQL( sqlUpdate );
     db.close( );
   }
 
-  public ArrayList<Candy> selectAll( ) {
-    String sqlQuery = "select * from " + TABLE_CANDY;
+  public ArrayList<Task> selectAll( ) {
+    String sqlQuery = "select * from " + TABLE_TASKS;
  
     SQLiteDatabase db = this.getWritableDatabase( );
     Cursor cursor = db.rawQuery( sqlQuery, null );
     
-    ArrayList<Candy> candies = new ArrayList<Candy>( );
+    ArrayList<Task> candies = new ArrayList<Task>( );
     while( cursor.moveToNext( ) ) {
-      Candy currentCandy
-          = new Candy( Integer.parseInt( cursor.getString( 0 ) ),
+      Task currentCandy
+          = new Task( Integer.parseInt( cursor.getString( 0 ) ),
         		        cursor.getString( 1 ), cursor.getDouble( 2 ) );
       candies.add( currentCandy );
     }
@@ -84,16 +85,16 @@ public class DatabaseManager extends SQLiteOpenHelper {
     return candies;
   }
     
-  public Candy selectById( int id ) {
-    String sqlQuery = "select * from " + TABLE_CANDY;
+  public Task selectById(int id ) {
+    String sqlQuery = "select * from " + TABLE_TASKS;
     sqlQuery += " where " + ID + " = " + id;
     
     SQLiteDatabase db = this.getWritableDatabase( );
     Cursor cursor = db.rawQuery( sqlQuery, null );
  
-    Candy candy = null;
+    Task candy = null;
     if( cursor.moveToFirst( ) )
-      candy = new Candy( Integer.parseInt( cursor.getString( 0 ) ),
+      candy = new Task( Integer.parseInt( cursor.getString( 0 ) ),
 		              cursor.getString( 1 ), cursor.getDouble( 2 ) );
     return candy;
   }

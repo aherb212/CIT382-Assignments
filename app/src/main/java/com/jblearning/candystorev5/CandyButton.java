@@ -4,14 +4,14 @@ import android.content.Context;
 import android.widget.Button;
 
 public class CandyButton extends Button {
-  private Candy candy;
+  private Task candy;
 
-  public CandyButton( Context context, Candy newCandy ) {
+  public CandyButton( Context context, Task newCandy ) {
     super( context );
     candy = newCandy;
   }
 
   public double getPrice( ) {
-    return candy.getPrice( );
+    return candy.getDeadline( );
   }
 }
